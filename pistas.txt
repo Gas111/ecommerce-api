@@ -1,0 +1,11 @@
+qty disponible. 
+status para productos. 
+si esta en true o en false. 
+
+si el carro lo paso en una orden,
+get al carro, 
+luego lo paso al productsinorder. 
+luego los borro. 
+
+a penas se registra se crea el carrito tambien, pq la relacion es 1 a 1. 
+

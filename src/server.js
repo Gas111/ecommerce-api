@@ -1,0 +1,10 @@
+const swaggerDocs = require("../swagger")
+const app=require("./app")
+require("dotenv").config()
+
+const PORT=process.env.PORT
+
+app.listen(PORT,()=>{
+console.log(`servidor escuchando en el puerto ${PORT}`)
+swaggerDocs(app, PORT)
+})
