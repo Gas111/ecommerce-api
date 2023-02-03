@@ -1,39 +1,26 @@
 const {Router}=require("express")
-const {addToCart, allProductsInCart} = require("../controllers/car.controller")
+const {order, getAllOrders} = require("../controllers/order.controller")
 const authMiddleware = require("../middlewares/auth.middleware")
 const router=Router()
 
 /**
  * @openapi
- * /api/v1/cart/{id}:
+ * /api/v1/order:
  *   post:
  *     security:
  *       - bearerAuth: []
- *     summary: add a product into cart by id
- *     parameters:
- *       - in: path
- *         name: id
- *         schema:
- *           type: integer
- *         required: true
- *         description: Numeric Id of the product to insert into cart
- *     tags: [Add Product in Cart]
+ *     summary: order all products inside cart
+ *     tags: [Order all Products]
  *     requestBody:
- *       description: Required fields to add a product in a cart
+ *       description: Required userId field to order all products inside cart
  *       required: true
- *       content: 
+ *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/productInCart'
+ *             $ref: '#/components/schemas/order'
  *     responses:
- *        201:
- *          description: Added
- *          content:
- *            application/json:
- *              schema:
- *                $ref: '#/components/schemas/productInCart'
- *        400:
- *          description: Validation error
+ *        200:
+ *          description: All Products in Order
  *          content:
  *            application/json:
  *              schema:
@@ -41,27 +28,7 @@ const router=Router()
  *                properties:
  *                  message:
  *                    type: string
- *                    example: product not added
- * /api/v1/cart/allproducts/{id}:
- *   get:
- *     security:
- *       - bearerAuth: []
- *     summary: get all products in cart
- *     parameters:
- *       - in: path
- *         name: id
- *         schema:
- *           type: integer
- *         required: true
- *         description: Numeric Id of the Cart
- *     tags: [Get All Products in Cart]
- *     responses:
- *        200:
- *          description: All Products in Cart
- *          content:
- *            application/json:
- *              schema:
- *                $ref: '#/components/schemas/productInCart'
+ *                    example: order ID:9 created
  *        400:
  *          description: get error
  *          content:
@@ -71,12 +38,42 @@ const router=Router()
  *                properties:
  *                  message:
  *                    type: string
- *                    example: not find data
+ *                    example: not find order
+ * /api/v1/order/{id}:
+ *   get:
+ *     summary: get all orders created by user
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: UserId 
+ *     tags: [Get All Orders]
+ *     responses:
+ *        200:
+ *          description: All products
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/getAllOrders'
+ *        400:
+ *          description: get error
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  message:
+ *                    type: string
+ *                    example: error to get data in database
  */
 
 
-// router.post("/",addToCart)
-router.post("/:id",authMiddleware,addToCart)
-router.get("/allproducts/:id",allProductsInCart)
 
+// router.post("/",addToCart)
+router.post("/",order)
+router.get("/:id",getAllOrders)
 module.exports=router

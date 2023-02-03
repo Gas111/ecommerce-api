@@ -1,26 +1,4 @@
 const { product_in_cart } = require('../models')
-// const { Op } = require('sequelize')
-
-/** 
-* productInCart:
-*       type: object
-*       properties:
-*         cartId:
-*           type: int
-*           example: 1
-*         productId:
-*           type: int
-*           example: 1
-*         quantity:
-*           type: int
-*           example: 1
-*         price:
-*           type: int
-*           example: 1000
-*         type:
-*           type: enum (pending - incart- purchased)
-*           example: pending
-*/ 
 
 class ProductInCartServices {
   static async add(cartId, productId, quantity, price, type) {
@@ -47,6 +25,26 @@ class ProductInCartServices {
       throw error
     }
   }
+
+  
+  static async findAllProducts(cart_id) {
+    try {
+      const result = await product_in_cart.findAll({ where: {cart_id}})
+      return result
+    } catch (error) {
+      throw error
+    }
+  }
+  static async update(cart_id) {
+    try {
+      const result = await product_in_cart.update({ where: {cart_id}})
+      return result
+    } catch (error) {
+      throw error
+    }
+  }
+
+
 }
 
 module.exports = ProductInCartServices

@@ -7,6 +7,7 @@ const morgan=require("morgan")
 const authRoutes=require("./routes/auth.routes")
 const productRoutes=require("./routes/product.routes")
 const carRoutes=require("./routes/car.routes")
+const orderRoutes=require("./routes/order.routes")
 const transporter = require("./utils/mailer")
 const authMiddleware = require("./middlewares/auth.middleware")
 
@@ -43,5 +44,6 @@ app.use(morgan("tiny")) //velocity and log
 
 app.use("/api/v1/auth",authRoutes)
 app.use("/api/v1/product",authMiddleware, productRoutes)
-app.use("/api/v1/cart",authMiddleware, carRoutes)
+app.use("/api/v1/cart",carRoutes)
+app.use("/api/v1/order",orderRoutes)
 module.exports=app

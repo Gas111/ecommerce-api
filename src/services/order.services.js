@@ -1,10 +1,13 @@
 const { order } = require('../models')
+const { product_in_order:productInOrder } = require('../models')
 
 class OrderServices {
-  static async create(name,price,availableQty,type,userId) {
+  static async create(userId, totalPrice) {
     try {
-      console.log(email, password)
-      const result = await order.create({ name,price,available_qty:availableQty,type,user_id:userId })
+      const result = await order.create({
+        user_id: userId,
+        total_price: totalPrice,
+      })
       console.log(result)
       return result
     } catch (error) {
@@ -13,9 +16,21 @@ class OrderServices {
     }
   }
 
-  static async allProducts() {
+  static async findOrderByUser(userId) {
     try {
-      const result = await order.find({ where: {} })
+      const result = await order.find({ where: { user_id: userId } })
+      return result
+    } catch (error) {
+      throw error
+    }
+  }
+
+  static async findOrderByUserWithModels(userId) {
+    try {
+      const result = await order.findAll({
+        where: { user_id: userId },
+        include: { model: productInOrder, as: 'product_in_orders' },
+      })
       return result
     } catch (error) {
       throw error

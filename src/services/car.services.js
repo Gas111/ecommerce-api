@@ -29,15 +29,15 @@ class CarServices {
       throw error
     }
   }
-
-  static async findAll() {
+  static async find(userId) {
     try {
-      const result = await car.findAll()
+      const result = await car.findOne({user_id:userId})
       return result
     } catch (error) {
       throw error
     }
   }
+
 }
 
 module.exports = CarServices

@@ -7,6 +7,8 @@ const router=Router()
  * @openapi
  * /api/v1/product/create:
  *   post:
+ *     security:
+ *       - bearerAuth: []
  *     summary: create a new product into application
  *     tags: [Create Product]
  *     requestBody:

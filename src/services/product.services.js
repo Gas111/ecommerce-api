@@ -41,6 +41,24 @@ class ProductServices {
       throw error
     }
   }
+  
+  static async changeQuantity(id) {
+    try {
+      const productToChangeQuantity = await product.findOne({
+        where: { id },
+      })
+      
+      productToChangeQuantity.quantity= productToChangeQuantity -1 
+      const result=await productToChangeQuantity.save()
+      return result
+    } catch (error) {
+      throw error
+    }
+  }
+
+
+
+
 }
 
 module.exports = ProductServices

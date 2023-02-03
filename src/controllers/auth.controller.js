@@ -8,7 +8,7 @@ const register = async (req, res) => {
     const result = await AuthServices.register(email,password)
     if (result) {
       const {id}=result
-      const resultCar = await CarServices.add(id)
+      const resultCar = await CarServices.create(id)
       if (resultCar)
       {
 console.log(result.email)
@@ -65,11 +65,11 @@ const login = async (req, res) => {
 
     if (result.isValid) {
       const { username, id, email } = result.result
-      const userData = { username, id, email }
+      let userData = { username, id, email }
 
       const token = AuthServices.genToken(userData)
-      // result.result.users.token = token
-      res.status(200).json(token)
+      userData.token=token
+      res.status(200).json(userData)
     } else {
       res.status(400).json({ message: 'user not found' })
     }

@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
  *           example: gaston@gmail.com
  *         password:
  *           type: string
- *           example: 1123
+ *           example: 1234
  *     loginResponse:
  *       type: object
  *       properties:
@@ -45,6 +45,11 @@ module.exports = (sequelize, DataTypes) => {
  *         token:
  *           type: string
  *           example: eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJmaXJzdG5hbWUiOiJhZHNmYXNkIiwibGFzdG5hbWUiOiJkY2FmZGEiLCJpZCI6OSwiZW1haWwiOiI4NzcyMmRzQGdtYWlsLmNvbSIsImlhdCI6MTY3NDk2MDI1NiwiZXhwIjoxNjc0OTYwODU2fQ.sj_U2V0Mh-yusASBeLStnBzvOICLBJxYC3F4qoEDeabtKw1lRpVaijxSUz0FUv9Ay3x8YPo3Z33H9BQClehGhw
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
  */
 
 
