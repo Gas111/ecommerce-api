@@ -4,30 +4,24 @@ const transporter = require('../utils/mailer')
 
 const register = async (req, res) => {
   try {
-    const {email,password} = req.body
-    const result = await AuthServices.register(email,password)
+    const { email, password } = req.body
+    const result = await AuthServices.register(email, password)
     if (result) {
-      const {id}=result
+      const { id } = result
       const resultCar = await CarServices.create(id)
-      if (resultCar)
-      {
-console.log(result.email)
-      await transporter.sendMail({
-        to: result.email,
-        from: 'gastoncolque@gmail.com',
-        cc:"gastoncolque@gmail.com",
-        subject: 'Email confirmation',
-        html:'<h1>Tienes q confirmar tu email en siguiente link <a href="" target="">Link</a></h1>',})
-      res.status(201).json({ message: 'user created' })
-
-
-
-
-      }else{
-
+      if (resultCar) {
+        await transporter.sendMail({
+          to: result.email,
+          from: 'gastoncolque@gmail.com',
+          cc: 'gastoncolque@gmail.com',
+          subject: 'Email confirmation',
+          html:
+            '<h1>Tienes q confirmar tu email en siguiente link <a href="" target="">Link</a></h1>',
+        })
+        res.status(201).json({ message: 'user created' })
+      } else {
         res.status(400).json({ message: 'something wrong' })
       }
-      
     } else {
       res.status(400).json({ message: 'something wrong' })
     }
@@ -68,7 +62,7 @@ const login = async (req, res) => {
       let userData = { username, id, email }
 
       const token = AuthServices.genToken(userData)
-      userData.token=token
+      userData.token = token
       res.status(200).json(userData)
     } else {
       res.status(400).json({ message: 'user not found' })

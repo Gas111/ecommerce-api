@@ -3,8 +3,8 @@ const ProductServices = require('../services/product.services')
 
 const create = async (req, res) => {
   try {
-    const {name,price,availableQty,type,userId} = req.body
-    const result = await ProductServices.create(name,price,availableQty,type,userId)
+    const {name,price,availableQty,type,userId,image} = req.body
+    const result = await ProductServices.create(name,price,availableQty,type,userId,image)
     if (result) {
       console.log(result)
        res.status(201).json(result)

@@ -1,17 +1,15 @@
-const {users} = require('../models')
+const { users } = require('../models')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
 
 class AuthServices {
-  static async register(email,password) {
+  static async register(email, password) {
     try {
-      console.log(email,password)
-      const result = await users.create({email,password})
-      console.log(result)
+      console.log(email, password)
+      const result = await users.create({ email, password })
       return result
     } catch (error) {
-      console.log(error)
       throw error
     }
   }
@@ -39,6 +37,15 @@ class AuthServices {
         algorithm: 'HS512',
       })
       return token
+    } catch (error) {
+      throw error
+    }
+  }
+
+  static async findOne(id) {
+    try {
+      const result = await users.findOne({where:{ id }})
+      return result
     } catch (error) {
       throw error
     }

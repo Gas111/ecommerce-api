@@ -3,12 +3,9 @@ const { car } = require('../models')
 class CarServices {
   static async create(id) {
     try {
-      console.log(id)
       const result = await car.create({user_id:id})
-      console.log(result)
       return result
     } catch (error) {
-      console.log(error)
       throw error
     }
   }
@@ -29,9 +26,17 @@ class CarServices {
       throw error
     }
   }
-  static async find(userId) {
+  static async findByUserId(userId) {
     try {
-      const result = await car.findOne({user_id:userId})
+      const result = await car.findOne({where : {user_id:userId}})
+      return result
+    } catch (error) {
+      throw error
+    }
+  }
+  static async find(id) {
+    try {
+      const result = await car.findOne({where:{id}})
       return result
     } catch (error) {
       throw error

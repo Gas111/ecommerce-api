@@ -3,6 +3,23 @@ module.exports = (sequelize, DataTypes) => {
   return car.init(sequelize, DataTypes);
 }
 
+
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     car:
+ *       type: object
+ *       properties:
+ *         userId:
+ *           type: int
+ *           example: 1
+ *         quantity:
+ *           type: int
+ *           example: 3
+ */ 
+
+
 class car extends Sequelize.Model {
   static init(sequelize, DataTypes) {
   return super.init({

@@ -9,7 +9,7 @@ const router=Router()
  *   post:
  *     security:
  *       - bearerAuth: []
- *     summary: add a product into cart by id
+ *     summary: add a product into cart by parameter ProductId
  *     parameters:
  *       - in: path
  *         name: id
@@ -24,14 +24,18 @@ const router=Router()
  *       content: 
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/productInCart'
+ *             $ref: '#/components/schemas/car'
  *     responses:
  *        201:
  *          description: Added
  *          content:
  *            application/json:
  *              schema:
- *                $ref: '#/components/schemas/productInCart'
+ *                type: object
+ *                properties:
+ *                  message:
+ *                    type: string
+ *                    example: product inserted into cart
  *        400:
  *          description: Validation error
  *          content:
@@ -46,14 +50,14 @@ const router=Router()
  *   get:
  *     security:
  *       - bearerAuth: []
- *     summary: get all products in cart
+ *     summary: get all products in cart by UserId
  *     parameters:
  *       - in: path
  *         name: id
  *         schema:
  *           type: integer
  *         required: true
- *         description: Numeric Id of the Cart
+ *         description: Numeric Id of the User
  *     tags: [Get All Products in Cart]
  *     responses:
  *        200:
@@ -76,7 +80,8 @@ const router=Router()
 
 
 // router.post("/",addToCart)
-router.post("/:id",authMiddleware,addToCart)
+// router.post("/:id",authMiddleware,addToCart)
+router.post("/:id",addToCart)
 router.get("/allproducts/:id",allProductsInCart)
 
 module.exports=router

@@ -2,20 +2,18 @@ const { product } = require('../models')
 const { Op } = require('sequelize')
 
 class ProductServices {
-  static async create(name, price, availableQty, type, userId) {
+  static async create(name, price, availableQty, type, userId, image) {
     try {
-      console.log(name, price, availableQty, type, userId)
       const result = await product.create({
         name,
         price,
         available_qty: availableQty,
         type,
         user_id: userId,
+        image,
       })
-      console.log(result)
       return result
     } catch (error) {
-      console.log(error)
       throw error
     }
   }
@@ -41,24 +39,21 @@ class ProductServices {
       throw error
     }
   }
-  
-  static async changeQuantity(id) {
+
+  static async changeQuantity(id, quantityToSubtract) {
     try {
-      const productToChangeQuantity = await product.findOne({
-        where: { id },
+      const productToChangeQuantity = await product.findOne({where:{ id }})
+
+      const availableQtyChanged =
+        productToChangeQuantity.available_qty - quantityToSubtract
+      await productToChangeQuantity.update({
+        available_qty: availableQtyChanged,
       })
-      
-      productToChangeQuantity.quantity= productToChangeQuantity -1 
-      const result=await productToChangeQuantity.save()
-      return result
+      return productToChangeQuantity
     } catch (error) {
       throw error
     }
   }
-
-
-
-
 }
 
 module.exports = ProductServices

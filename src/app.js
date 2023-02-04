@@ -43,7 +43,7 @@ app.use(morgan("tiny")) //velocity and log
 // sendEmail()
 
 app.use("/api/v1/auth",authRoutes)
-app.use("/api/v1/product",authMiddleware, productRoutes)
+app.use("/api/v1/product",productRoutes)
 app.use("/api/v1/cart",carRoutes)
 app.use("/api/v1/order",orderRoutes)
 module.exports=app

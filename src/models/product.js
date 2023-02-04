@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
  *           example: tv 20 pulgadas marca Lg
  *         price:
  *           type: int
- *           example: 123
+ *           example: 600
  *         availableQty:
  *           type: int
  *           example: 12
@@ -25,7 +25,10 @@ module.exports = (sequelize, DataTypes) => {
  *           example: pending
  *         userId:
  *           type: int
- *           example: 1234
+ *           example: 1
+ *         image:
+ *           type: string
+ *           example: URL
  *     allproducts:
  *       type: object
  *       properties:
@@ -34,16 +37,19 @@ module.exports = (sequelize, DataTypes) => {
  *           example: tv 20 pulgadas marca Lg
  *         price:
  *           type: int
- *           example: 123
+ *           example: 10000
  *         availableQty:
  *           type: int
- *           example: 12
+ *           example: 10
  *         type:
  *           type: enum (pending - incart- purchased)
  *           example: pending
  *         userId:
  *           type: int
- *           example: 1234
+ *           example: 2
+ *         image:
+ *           type: string
+ *           example: URL
  */ 
 
 
@@ -78,6 +84,10 @@ class product extends Sequelize.Model {
       type: DataTypes.ENUM("pending","incart","purchased"),
       allowNull: true,
       defaultValue: "pending"
+    },
+    image: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     user_id: {
       type: DataTypes.INTEGER,
